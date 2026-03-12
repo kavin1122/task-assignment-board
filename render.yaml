@@ -1,13 +1,16 @@
 services:
   - type: web
-    name: task-assignment-board
+    name: task-assignment-board-api
     runtime: node
-    buildCommand: npm run install-all && npm run build
-    startCommand: npm start
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
         sync: false
       - key: JWT_SECRET
+        sync: false
+      - key: CORS_ORIGIN
         sync: false
