@@ -32,18 +32,26 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/uploads', uploadRoutes);
 app.use('/api/teams', teamRoutes);
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Task Assignment Board API',
-    version: '1.0.0',
-    endpoints: {
-      auth: '/api/auth',
-      projects: '/api/projects',
-      tasks: '/api/tasks',
-    },
+// Serve frontend in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
   });
-});
+} else {
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Task Assignment Board API',
+      version: '1.0.0',
+      endpoints: {
+        auth: '/api/auth',
+        projects: '/api/projects',
+        tasks: '/api/tasks',
+      },
+    });
+  });
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
