@@ -18,9 +18,12 @@ const app = express();
 connectDB();
 
 // Middleware
+const corsOrigin = process.env.CORS_ORIGIN;
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  credentials: true
+  origin: corsOrigin ? corsOrigin.split(',').map(s => s.trim()) : '*',
+  credentials: !!corsOrigin,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
