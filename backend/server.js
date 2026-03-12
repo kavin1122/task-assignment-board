@@ -18,10 +18,10 @@ const app = express();
 connectDB();
 
 // Middleware
-const corsOrigin = process.env.CORS_ORIGIN;
+const corsOrigin = process.env.CORS_ORIGIN || 'https://task-assignment-board.vercel.app';
 app.use(cors({
-  origin: corsOrigin ? corsOrigin.split(',').map(s => s.trim()) : '*',
-  credentials: !!corsOrigin,
+  origin: corsOrigin.split(',').map(s => s.trim()),
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
