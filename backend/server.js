@@ -18,7 +18,7 @@ const app = express();
 connectDB();
 
 // Middleware
-const corsOrigin = process.env.CORS_ORIGIN || 'https://task-assignment-board.vercel.app';
+const corsOrigin = process.env.CORS_ORIGIN || 'https://task-assignment-board.vercel.app,http://localhost:3000';
 app.use(cors({
   origin: corsOrigin.split(',').map(s => s.trim()),
   credentials: true,
